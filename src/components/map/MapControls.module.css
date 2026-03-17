@@ -16,24 +16,30 @@
 .btn {
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
-  padding: 6px 14px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: transparent;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-card);
   color: var(--text-muted);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition-base);
 }
 
 .btn:hover {
-  border-color: var(--cyan);
+  box-shadow: var(--shadow-hover);
   color: var(--cyan);
 }
 
 .active {
-  border-color: var(--cyan);
-  color: var(--cyan);
-  background: rgba(0, 140, 210, 0.08);
+  background: var(--cyan);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,136,170,0.30), 0 1px 3px rgba(0,0,0,0.10);
+}
+
+.active:hover {
+  color: #fff;
+  opacity: 0.92;
 }
 
 .elevBadge {
@@ -43,9 +49,10 @@
   gap: 4px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 5px;
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-card);
+  border: none;
   color: var(--text-secondary);
 }

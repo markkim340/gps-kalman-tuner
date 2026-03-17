@@ -19,6 +19,21 @@
   --text-primary: #1a1a2e;
   --text-secondary: #444466;
   --text-muted: #8899aa;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-menu: 0 8px 24px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+  --transition-slow: 0.3s ease;
+
+  /* Radii */
+  --radius-card: 14px;
+  --radius-input: 10px;
+  --radius-pill: 20px;
 }
 
 * {
@@ -29,11 +44,36 @@
 
 body {
   font-family: 'Space Grotesk', sans-serif;
-  background: var(--bg);
+  background: linear-gradient(160deg, #f0f2f7 0%, #f8f9fc 50%, #ffffff 100%);
+  background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Global scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.10) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.10);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.18);
 }
 
 #root {
