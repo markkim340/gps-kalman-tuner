@@ -1,22 +1,43 @@
 .layout {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  min-height: 100vh;
-  position: relative;
+  grid-template-columns: 1fr 370px;
+  height: 100vh;
+  overflow: hidden;
 }
 
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
   }
 }
 
 .left {
-  padding: 20px;
+  padding: 20px 24px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+
+.left::-webkit-scrollbar {
+  width: 6px;
+}
+
+.left::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.left::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+}
+
+.left::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .right {
@@ -27,11 +48,38 @@
   gap: 14px;
   background: var(--surface);
   border-left: 1px solid var(--border);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
+}
+
+.right::-webkit-scrollbar {
+  width: 5px;
+}
+
+.right::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.right::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+.right::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.18);
 }
 
 @media (max-width: 900px) {
+  .left {
+    overflow-y: visible;
+    height: auto;
+  }
+
   .right {
     border-left: none;
     border-top: 1px solid var(--border);
+    overflow-y: visible;
+    height: auto;
+    max-height: none;
   }
 }
