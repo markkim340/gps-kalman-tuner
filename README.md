@@ -4,6 +4,8 @@ A browser-based tool for visualizing and tuning Kalman filter parameters on GPS 
 
 Ported from a production Flutter/Dart GPS tracking app — same algorithms, now tunable in the browser.
 
+![Screenshot](docs/screenshot.png)
+
 ## Getting Started
 
 ```bash
