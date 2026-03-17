@@ -1,13 +1,17 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import RouteRenderer from './RouteRenderer';
+import { useI18n } from '../i18n';
 
 const TrackerPage = lazy(() => import('../pages/TrackerPage'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 
-const Loading = () => (
-  <div style={{ padding: 40, textAlign: 'center', color: '#888' }}>Loading...</div>
-);
+function Loading() {
+  const { t } = useI18n();
+  return (
+    <div style={{ padding: 40, textAlign: 'center', color: '#888' }}>{t.loading}</div>
+  );
+}
 
 export default function App() {
   return (

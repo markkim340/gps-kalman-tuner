@@ -1,22 +1,24 @@
 import { useKalmanStore } from '../../stores/useKalmanStore';
+import { useI18n } from '../../i18n';
 import type { MapMode } from '../../types';
 import styles from './MapControls.module.css';
-
-const MODES: { key: MapMode; label: string }[] = [
-  { key: 'both', label: 'RAW + 칼만' },
-  { key: 'raw', label: 'RAW만' },
-  { key: 'kalman', label: '칼만만' },
-  { key: 'refined', label: '보정 경로' },
-];
 
 export default function MapControls() {
   const mapMode = useKalmanStore((s) => s.mapMode);
   const setMapMode = useKalmanStore((s) => s.setMapMode);
   const stats = useKalmanStore((s) => s.stats);
+  const { t } = useI18n();
+
+  const MODES: { key: MapMode; label: string }[] = [
+    { key: 'both', label: t.modeRawKalman },
+    { key: 'raw', label: t.modeRawOnly },
+    { key: 'kalman', label: t.modeKalmanOnly },
+    { key: 'refined', label: t.modeRefined },
+  ];
 
   return (
     <div className={styles.controls}>
-      <span className={styles.label}>표시</span>
+      <span className={styles.label}>{t.display}</span>
       {MODES.map((m) => (
         <button
           key={m.key}

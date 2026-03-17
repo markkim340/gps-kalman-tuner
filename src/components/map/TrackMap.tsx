@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Polyline, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { useKalmanStore } from '../../stores/useKalmanStore';
+import { useI18n } from '../../i18n';
 import { lerpColor } from '../../utils/format';
 import styles from './TrackMap.module.css';
 import 'leaflet/dist/leaflet.css';
@@ -100,6 +101,7 @@ function FitBounds() {
 
 export default function TrackMap() {
   const rawData = useKalmanStore((s) => s.rawData);
+  const { t } = useI18n();
   if (rawData.length < 1) return null;
 
   const rawLL = rawData.map((p) => [p[0], p[1]] as [number, number]);
@@ -109,13 +111,13 @@ export default function TrackMap() {
   return (
     <div className={styles.mapWrap}>
       <div className={styles.mapHead}>
-        <div className={styles.mapTitle}>GPS 경로 — 칼만 실시간 변화</div>
+        <div className={styles.mapTitle}>{t.mapTitle}</div>
         <div className={styles.legend}>
-          <span className={styles.legendItem}><span className={styles.dot} style={{ background: '#dc3c50' }} />RAW</span>
-          <span className={styles.legendItem}><span className={styles.dot} style={{ background: '#00aa55' }} />칼만</span>
-          <span className={styles.legendItem}><span className={styles.dot} style={{ background: '#0088cc' }} />보정</span>
-          <span className={styles.legendItem}><span className={styles.dot} style={{ background: '#00aa55' }} />시작</span>
-          <span className={styles.legendItem}><span className={styles.dot} style={{ background: '#dd6622' }} />종료</span>
+          <span className={styles.legendItem}><span className={styles.dot} style={{ background: '#dc3c50' }} />{t.legendRaw}</span>
+          <span className={styles.legendItem}><span className={styles.dot} style={{ background: '#00aa55' }} />{t.legendKalman}</span>
+          <span className={styles.legendItem}><span className={styles.dot} style={{ background: '#0088cc' }} />{t.legendRefined}</span>
+          <span className={styles.legendItem}><span className={styles.dot} style={{ background: '#00aa55' }} />{t.legendStart}</span>
+          <span className={styles.legendItem}><span className={styles.dot} style={{ background: '#dd6622' }} />{t.legendEnd}</span>
         </div>
       </div>
       <MapContainer

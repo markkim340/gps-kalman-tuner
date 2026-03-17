@@ -1,17 +1,19 @@
 import { useKalmanStore } from '../../stores/useKalmanStore';
+import { useI18n } from '../../i18n';
 import { formatPace, formatTime } from '../../utils/format';
 import styles from './StatsCards.module.css';
 
 export default function StatsCards() {
   const stats = useKalmanStore((s) => s.stats);
+  const { t } = useI18n();
 
   const cards = [
-    { label: '거리 (칼만)', value: (stats.kalman.distanceMeters / 1000).toFixed(3), unit: 'km', color: 'var(--green)' },
-    { label: '거리 (보정)', value: (stats.refined.distanceMeters / 1000).toFixed(3), unit: 'km', color: 'var(--cyan)' },
-    { label: '페이스', value: formatPace(stats.kalman.paceSecPerKm), unit: 'min/km', color: 'var(--purple)' },
-    { label: '소요 시간', value: formatTime(stats.totalMs), unit: 'mm : ss', color: 'var(--orange)' },
-    { label: '상승 고도', value: stats.kalman.totalAscent.toFixed(0), unit: 'm 상승', color: 'var(--yellow)' },
-    { label: '하강 고도', value: stats.kalman.totalDescent.toFixed(0), unit: 'm 하강', color: 'var(--red)' },
+    { label: t.distKalman, value: (stats.kalman.distanceMeters / 1000).toFixed(3), unit: t.unitKm, color: 'var(--green)' },
+    { label: t.distRefined, value: (stats.refined.distanceMeters / 1000).toFixed(3), unit: t.unitKm, color: 'var(--cyan)' },
+    { label: t.pace, value: formatPace(stats.kalman.paceSecPerKm), unit: t.unitMinKm, color: 'var(--purple)' },
+    { label: t.totalTime, value: formatTime(stats.totalMs), unit: t.unitMmSs, color: 'var(--orange)' },
+    { label: t.ascent, value: stats.kalman.totalAscent.toFixed(0), unit: t.unitMAscent, color: 'var(--yellow)' },
+    { label: t.descent, value: stats.kalman.totalDescent.toFixed(0), unit: t.unitMDescent, color: 'var(--red)' },
   ];
 
   return (

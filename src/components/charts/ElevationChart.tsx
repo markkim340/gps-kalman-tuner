@@ -1,11 +1,13 @@
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
 import { useKalmanStore } from '../../stores/useKalmanStore';
+import { useI18n } from '../../i18n';
 import styles from './Charts.module.css';
 
 export default function ElevationChart() {
   const afterKalman = useKalmanStore((s) => s.pipeline.afterKalman);
   const refined = useKalmanStore((s) => s.pipeline.refined);
   const stats = useKalmanStore((s) => s.stats);
+  const { t } = useI18n();
 
   // Align refined to same length as kalman by index interpolation
   const data = afterKalman.map((p, i) => {
@@ -20,7 +22,7 @@ export default function ElevationChart() {
   return (
     <div className={styles.chartCard}>
       <div className={styles.chartLabel}>
-        고도 프로파일 (칼만 + 보정)
+        {t.chartElevation}
         <span className={styles.chartTag}>▲{stats.kalman.totalAscent.toFixed(0)}m ▼{stats.kalman.totalDescent.toFixed(0)}m</span>
       </div>
       <ResponsiveContainer width="100%" height={88}>
@@ -39,7 +41,7 @@ export default function ElevationChart() {
           <YAxis hide domain={['dataMin', 'dataMax']} />
           <Tooltip
             contentStyle={{ fontSize: 10, background: '#fff', border: '1px solid #ddd' }}
-            formatter={(v, name) => [`${Number(v).toFixed(1)}m`, name === 'kalman' ? '칼만' : '보정']}
+            formatter={(v, name) => [`${Number(v).toFixed(1)}m`, name === 'kalman' ? t.chartElevTooltipKalman : t.chartElevTooltipRefined]}
           />
           <Area type="monotone" dataKey="kalman" stroke="#00aa55" strokeWidth={1.5} fill="url(#elevGrad)" dot={false} />
           <Area type="monotone" dataKey="refined" stroke="#0088cc" strokeWidth={1.5} fill="url(#refinedGrad)" dot={false} />

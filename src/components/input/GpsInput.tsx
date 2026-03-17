@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { useKalmanStore } from '../../stores/useKalmanStore';
+import { useI18n } from '../../i18n';
 import { RAW_GPS_DATA } from '../../data/rawGpsData';
 import type { RawPoint } from '../../types';
 import styles from './GpsInput.module.css';
@@ -43,11 +44,12 @@ export default function GpsInput() {
   const fileRef = useRef<HTMLInputElement>(null);
   const rawData = useKalmanStore((s) => s.rawData);
   const setRawData = useKalmanStore((s) => s.setRawData);
+  const { t } = useI18n();
 
   const handleApply = () => {
     const data = parseGpsInput(inputText);
     if (!data) {
-      setError('유효하지 않은 GPS 데이터 형식입니다. JSON 배열 형식을 확인해 주세요.');
+      setError(t.gpsInputError);
       return;
     }
     setError('');
@@ -81,22 +83,22 @@ export default function GpsInput() {
   return (
     <div className={styles.wrapper}>
       <button className={styles.toggleBtn} onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? '▾ GPS 경로 입력 닫기' : '▸ GPS 경로 입력'}
-        <span className={styles.pointCount}>{rawData.length}pts 로드됨</span>
+        {isOpen ? t.gpsInputClose : t.gpsInputOpen}
+        <span className={styles.pointCount}>{t.ptsLoaded(rawData.length)}</span>
       </button>
 
       {isOpen && (
         <div className={styles.panel}>
           <div className={styles.desc}>
-            GPS 경로 데이터를 JSON 형식으로 붙여넣거나 파일을 업로드하세요.
+            {t.gpsInputDesc}
           </div>
 
           <div className={styles.formatInfo}>
-            <div className={styles.formatTitle}>지원 형식</div>
+            <div className={styles.formatTitle}>{t.supportedFormats}</div>
             <code className={styles.formatCode}>
               {'[[lat, lng, alt, timestamp, accuracy], ...]'}
             </code>
-            <div className={styles.formatOr}>또는</div>
+            <div className={styles.formatOr}>{t.formatOr}</div>
             <code className={styles.formatCode}>
               {'[{ "lat": 37.5, "lng": 126.8, "alt": 19, "timestamp": 17730..., "accuracy": 14 }, ...]'}
             </code>
@@ -104,7 +106,7 @@ export default function GpsInput() {
 
           <textarea
             className={styles.textarea}
-            placeholder="GPS JSON 데이터를 여기에 붙여넣기..."
+            placeholder={t.gpsInputPlaceholder}
             value={inputText}
             onChange={(e) => { setInputText(e.target.value); setError(''); }}
             rows={6}
@@ -117,7 +119,7 @@ export default function GpsInput() {
               className={styles.fileBtn}
               onClick={() => fileRef.current?.click()}
             >
-              파일 업로드 {fileName && `(${fileName})`}
+              {t.fileUpload} {fileName && `(${fileName})`}
             </button>
             <input
               ref={fileRef}
@@ -127,14 +129,14 @@ export default function GpsInput() {
               onChange={handleFileUpload}
             />
             <button className={styles.sampleBtn} onClick={handleLoadSample}>
-              샘플 데이터
+              {t.sampleData}
             </button>
             <button
               className={styles.applyBtn}
               onClick={handleApply}
               disabled={!inputText.trim()}
             >
-              적용하기
+              {t.apply}
             </button>
           </div>
         </div>

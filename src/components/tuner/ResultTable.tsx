@@ -1,58 +1,60 @@
 import { useKalmanStore } from '../../stores/useKalmanStore';
+import { useI18n } from '../../i18n';
 import { formatPace, formatTime } from '../../utils/format';
 import styles from './Tuner.module.css';
 
 export default function ResultTable() {
   const stats = useKalmanStore((s) => s.stats);
+  const { t } = useI18n();
   const raw = stats.raw;
   const kalman = stats.kalman;
   const refined = stats.refined;
 
   const rows = [
     {
-      label: '총거리',
+      label: t.rowDistance,
       raw: `${(raw.distanceMeters / 1000).toFixed(3)} km`,
       kalman: `${(kalman.distanceMeters / 1000).toFixed(3)} km`,
       refined: `${(refined.distanceMeters / 1000).toFixed(3)} km`,
     },
     {
-      label: '페이스',
+      label: t.rowPace,
       raw: formatPace(raw.paceSecPerKm),
       kalman: formatPace(kalman.paceSecPerKm),
       refined: formatPace(refined.paceSecPerKm),
     },
     {
-      label: '포인트수',
+      label: t.rowPoints,
       raw: `${raw.pointCount}`,
       kalman: `${kalman.pointCount}`,
       refined: `${refined.pointCount}`,
     },
     {
-      label: '이동시간',
+      label: t.rowMovingTime,
       raw: formatTime(raw.movingMs),
       kalman: formatTime(kalman.movingMs),
       refined: formatTime(refined.movingMs),
     },
     {
-      label: '상승고도',
+      label: t.rowAscent,
       raw: `${raw.totalAscent.toFixed(0)} m`,
       kalman: `${kalman.totalAscent.toFixed(0)} m`,
       refined: `${refined.totalAscent.toFixed(0)} m`,
     },
     {
-      label: '하강고도',
+      label: t.rowDescent,
       raw: `${raw.totalDescent.toFixed(0)} m`,
       kalman: `${kalman.totalDescent.toFixed(0)} m`,
       refined: `${refined.totalDescent.toFixed(0)} m`,
     },
     {
-      label: '고도범위',
+      label: t.rowAltRange,
       raw: `${raw.altMin.toFixed(0)}~${raw.altMax.toFixed(0)} m`,
       kalman: `${kalman.altMin.toFixed(0)}~${kalman.altMax.toFixed(0)} m`,
       refined: `${refined.altMin.toFixed(0)}~${refined.altMax.toFixed(0)} m`,
     },
     {
-      label: '평균속도',
+      label: t.rowAvgSpeed,
       raw: `${(raw.avgSpeedMs * 3.6).toFixed(1)} km/h`,
       kalman: `${(kalman.avgSpeedMs * 3.6).toFixed(1)} km/h`,
       refined: `${(refined.avgSpeedMs * 3.6).toFixed(1)} km/h`,
@@ -61,14 +63,14 @@ export default function ResultTable() {
 
   return (
     <div>
-      <div className={styles.sectionTitle}>현재 파라미터 결과</div>
+      <div className={styles.sectionTitle}>{t.resultTitle}</div>
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>항목</th>
-            <th style={{ color: 'var(--red)' }}>RAW</th>
-            <th style={{ color: 'var(--cyan)' }}>칼만</th>
-            <th style={{ color: 'var(--green)' }}>보정</th>
+            <th>{t.colItem}</th>
+            <th style={{ color: 'var(--red)' }}>{t.colRaw}</th>
+            <th style={{ color: 'var(--cyan)' }}>{t.colKalman}</th>
+            <th style={{ color: 'var(--green)' }}>{t.colRefined}</th>
           </tr>
         </thead>
         <tbody>

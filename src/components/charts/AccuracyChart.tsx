@@ -1,10 +1,12 @@
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, ReferenceLine, Tooltip } from 'recharts';
 import { useKalmanStore } from '../../stores/useKalmanStore';
+import { useI18n } from '../../i18n';
 import styles from './Charts.module.css';
 
 export default function AccuracyChart() {
   const rawData = useKalmanStore((s) => s.rawData);
   const accThreshold = useKalmanStore((s) => s.config.outlier.accThreshold);
+  const { t } = useI18n();
   const data = rawData.map((p, i) => ({ idx: i, value: p[4] }));
   const avg = rawData.length > 0
     ? (rawData.reduce((s, x) => s + x[4], 0) / rawData.length).toFixed(1)
@@ -13,7 +15,7 @@ export default function AccuracyChart() {
   return (
     <div className={styles.chartCard}>
       <div className={styles.chartLabel}>
-        GPS 정확도 (accuracy m)
+        {t.chartAccuracy}
         <span className={styles.chartTag}>avg {avg}m</span>
       </div>
       <ResponsiveContainer width="100%" height={88}>
@@ -28,7 +30,7 @@ export default function AccuracyChart() {
           <YAxis hide domain={['dataMin', 'dataMax']} />
           <Tooltip
             contentStyle={{ fontSize: 12, background: '#fff', border: '1px solid #ddd' }}
-            formatter={(v) => [`${Number(v).toFixed(1)}m`, '정확도']}
+            formatter={(v) => [`${Number(v).toFixed(1)}m`, t.chartAccuracyTooltip]}
           />
           <ReferenceLine y={accThreshold} stroke="rgba(220,60,80,0.5)" strokeDasharray="4 3" />
           <Area type="monotone" dataKey="value" stroke="#ccaa00" strokeWidth={1.5} fill="url(#accGrad)" dot={false} />
