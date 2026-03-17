@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --surface-alt: #f0f2f5;
+  --border: #e0e4ea;
+  --border-light: #eef0f4;
+
+  --accent: #00aa55;
+  --green: #00884a;
+  --cyan: #0088aa;
+  --orange: #cc6622;
+  --red: #cc3344;
+  --yellow: #aa8800;
+  --purple: #7744cc;
+  --pink: #cc44aa;
+
+  --text-primary: #1a1a2e;
+  --text-secondary: #444466;
+  --text-muted: #8899aa;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.leaflet-container {
+  background: #f5f7fa;
+}
