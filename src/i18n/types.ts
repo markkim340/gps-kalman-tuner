@@ -1,4 +1,4 @@
-export type Locale = 'ko' | 'en';
+export type Locale = 'ko' | 'en' | 'ja';
 
 export interface Translations {
   // ─── Common ──────────────────────────────────────────────

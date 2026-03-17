@@ -55,20 +55,91 @@
   border: 1px solid var(--border);
 }
 
-.langBtn {
-  padding: 4px 10px;
-  border-radius: 6px;
+/* ─── Locale Selector (Accordion Dropdown) ──────────── */
+.localeSel {
+  position: relative;
+}
+
+.localeBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 8px;
   border: 1px solid var(--border);
-  background: var(--surface-alt);
+  background: var(--surface);
   color: var(--text-secondary);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
-  letter-spacing: 1px;
+  white-space: nowrap;
 }
-.langBtn:hover {
+
+.localeBtn:hover {
   border-color: var(--accent);
+}
+
+.flag {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.localeName {
+  font-size: 12px;
+}
+
+.arrow {
+  font-size: 9px;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+
+.localeMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 100;
+  min-width: 140px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.localeItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.localeItem:hover {
+  background: var(--surface-alt);
+}
+
+.localeActive {
+  background: var(--surface-alt);
   color: var(--accent);
+  font-weight: 600;
 }
