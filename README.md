@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# GPS Kalman Tuner
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A browser-based tool for visualizing and tuning Kalman filter parameters on GPS route data. Adjust filter settings with real-time sliders and instantly see how they affect your GPS track on an interactive map.
 
-Currently, two official plugins are available:
+Ported from a production Flutter/Dart GPS tracking app — same algorithms, now tunable in the browser.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Getting Started
 
-## React Compiler
+```bash
+# Install dependencies
+npm install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Usage
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Load GPS data** — Paste JSON or upload a file via the GPS Route Input panel
+2. **Adjust parameters** — Use the sliders in the right panel to tune filter settings
+3. **Compare results** — Switch between RAW, Kalman, and Refined views on the map
+4. **Try presets** — Quick-switch between Dart Default, Max Smoothing, GPS Faithful, and Sport Optimized
+
+### Supported GPS Data Formats
+
+```json
+// Array of arrays: [lat, lng, alt, timestamp_ms, accuracy_m]
+[[37.563, 126.839, 19.0, 1773096259000, 23.1], ...]
+
+// Array of objects
+[{ "lat": 37.563, "lng": 126.839, "alt": 19.0, "timestamp": 1773096259000, "accuracy": 23.1 }, ...]
 ```
+
+## Built With
+
+- React 19 + TypeScript — UI framework
+- Vite — Build tool
+- Zustand — State management
+- Leaflet — Interactive map
+- Recharts — Data visualization
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+
+## License
+
+MIT
